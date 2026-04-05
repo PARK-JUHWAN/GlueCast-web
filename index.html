@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="google-site-verification" content="Nckr8u7FdG3YoSaB23-Y5gRsXuLk-5Z3EjmR8eEfrkk" />
+<title>GlueCast — Lash Humidity Guide</title>
+<meta name="description" content="Weather-based lash adhesive advisor for extension technicians. Know which glue to use today, estimated cure time, and technique adjustments based on humidity and temperature. Free for iOS.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="GlueCast — Lash Humidity Guide">
+<meta property="og:description" content="Adhesive cure time by weather. Built for lash extension professionals.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,400&family=Fraunces:ital,opsz,wght@0,9..144,600;0,9..144,800;1,9..144,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0A1628;
+  --surface: #111f38;
+  --border: #1e3154;
+  --text: #e8eaed;
+  --text-dim: #8b919a;
+  --accent: #E8A0BF;
+  --accent-glow: rgba(232, 160, 191, 0.15);
+  --green: #34d399;
+  --yellow: #fbbf24;
+  --red: #f87171;
+  --teal: #00D4E8;
+  --white: #ffffff;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+.container {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  padding: 16px 0;
+  background: rgba(10, 22, 40, 0.88);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border);
+}
+
+nav .container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+}
+
+.logo-icon {
+  width: 36px;
+  height: 36px;
+  background: var(--accent);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+}
+
+.logo-text {
+  font-family: 'Fraunces', serif;
+  font-weight: 600;
+  font-size: 18px;
+  color: var(--text);
+}
+
+nav a.nav-link {
+  color: var(--text-dim);
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+
+nav a.nav-link:hover { color: var(--text); }
+
+.hero {
+  padding: 160px 0 100px;
+  text-align: center;
+  position: relative;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  top: 80px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.badge-pill {
+  display: inline-block;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 100px;
+  padding: 6px 16px;
+  font-size: 13px;
+  color: var(--accent);
+  font-weight: 500;
+  margin-bottom: 24px;
+  letter-spacing: 0.5px;
+}
+
+h1 {
+  font-family: 'Fraunces', serif;
+  font-weight: 800;
+  font-size: clamp(36px, 6vw, 60px);
+  line-height: 1.1;
+  margin-bottom: 20px;
+  position: relative;
+}
+
+h1 span { color: var(--accent); }
+
+.hero-sub {
+  font-size: 18px;
+  color: var(--text-dim);
+  max-width: 520px;
+  margin: 0 auto 40px;
+  line-height: 1.7;
+}
+
+.cta-row {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 28px;
+  border-radius: 12px;
+  font-size: 15px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.25s;
+  cursor: pointer;
+  border: none;
+}
+
+.btn-primary {
+  background: var(--accent);
+  color: #0A1628;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px var(--accent-glow);
+}
+
+.btn-outline {
+  background: transparent;
+  color: var(--text);
+  border: 1px solid var(--border);
+}
+
+.btn-outline:hover {
+  border-color: var(--text-dim);
+  background: var(--surface);
+}
+
+/* Demo card */
+.demo-section { padding: 80px 0; }
+
+.section-label {
+  font-size: 13px;
+  color: var(--accent);
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+
+h2 {
+  font-family: 'Fraunces', serif;
+  font-weight: 600;
+  font-size: 32px;
+  margin-bottom: 48px;
+}
+
+.dose-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 32px;
+  max-width: 420px;
+  margin: 0 auto;
+}
+
+.condition-row {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.param-block {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 16px 20px;
+}
+
+.param-label {
+  font-size: 12px;
+  color: var(--text-dim);
+  font-weight: 600;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+
+.param-values {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.param-current {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--green);
+}
+
+.param-arrow {
+  color: var(--text-dim);
+  font-size: 14px;
+}
+
+.param-target {
+  font-size: 16px;
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.condition-result {
+  font-size: 13px;
+  color: var(--text-dim);
+}
+
+.condition-result strong {
+  color: var(--accent);
+  font-size: 15px;
+}
+
+.disclaimer-small {
+  margin-top: 20px;
+  font-size: 11px;
+  color: var(--text-dim);
+  text-align: center;
+  line-height: 1.5;
+  opacity: 0.7;
+}
+
+/* Features */
+.features-section { padding: 80px 0; }
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 24px;
+}
+
+.feature-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 28px;
+}
+
+.feature-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  margin-bottom: 16px;
+}
+
+.feature-card h3 {
+  font-size: 17px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.feature-card p {
+  font-size: 14px;
+  color: var(--text-dim);
+  line-height: 1.6;
+}
+
+/* Brands */
+.brands-section { padding: 80px 0; }
+
+.brands-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.brand-tag {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 100px;
+  padding: 8px 18px;
+  font-size: 14px;
+  color: var(--text-dim);
+}
+
+/* How it works */
+.how-section { padding: 80px 0; }
+
+.steps {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 32px;
+  margin-top: 0;
+}
+
+.step {
+  text-align: center;
+}
+
+.step-number {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--accent-glow);
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  font-weight: 700;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 16px;
+}
+
+.step h3 {
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.step p {
+  font-size: 14px;
+  color: var(--text-dim);
+}
+
+/* Perfect For */
+.perfect-section { padding: 60px 0; }
+
+.target-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: center;
+}
+
+.target-tag {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 100px;
+  padding: 10px 20px;
+  font-size: 14px;
+  color: var(--text);
+}
+
+/* CTA */
+.cta-section {
+  padding: 100px 0;
+  text-align: center;
+}
+
+.cta-section h2 { margin-bottom: 16px; }
+.cta-section p { color: var(--text-dim); margin-bottom: 32px; font-size: 16px; }
+
+/* Footer */
+footer {
+  border-top: 1px solid var(--border);
+  padding: 40px 0;
+  text-align: center;
+}
+
+.footer-links {
+  display: flex;
+  gap: 24px;
+  justify-content: center;
+  margin-bottom: 16px;
+}
+
+.footer-links a {
+  color: var(--text-dim);
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.footer-links a:hover { color: var(--text); }
+
+footer p { font-size: 13px; color: var(--text-dim); }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="container">
+    <a class="logo" href="#">
+      <div class="logo-icon">💧</div>
+      <span class="logo-text">GlueCast</span>
+    </a>
+    <a href="mailto:naruto0414@gmail.com" class="nav-link">Contact</a>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="container">
+    <div class="badge-pill">🌤 For Lash Extension Professionals</div>
+    <h1>Your adhesive performs<br>better when you know<br><span>today's conditions</span></h1>
+    <p class="hero-sub">GlueCast checks your local humidity and temperature, then tells you which glue to use, estimated cure time, and technique adjustments — every morning before clients.</p>
+    <div class="cta-row">
+      <a href="#" class="btn btn-primary">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+        Download on the App Store
+      </a>
+      <a href="#how" class="btn btn-outline">Learn More</a>
+    </div>
+  </div>
+</section>
+
+<section class="demo-section">
+  <div class="container" style="text-align:center;">
+    <p class="section-label">Today's Guidance</p>
+    <h2>Real conditions. Real guidance.</h2>
+    <div class="dose-card">
+      <div class="condition-row">
+        <div class="param-block">
+          <div class="param-label">Humidity</div>
+          <div class="param-values">
+            <span class="param-current">52%</span>
+            <span class="param-arrow">Ideal Range 40–60%</span>
+          </div>
+          <div class="condition-result">Status: <strong>✅ Ideal Conditions</strong></div>
+        </div>
+        <div class="param-block">
+          <div class="param-label">Temperature</div>
+          <div class="param-values">
+            <span class="param-current" style="color:var(--teal);">23°C / 73°F</span>
+            <span class="param-arrow">Ideal 20–26°C</span>
+          </div>
+          <div class="condition-result">Status: <strong style="color:var(--teal);">✅ Ideal Temperature</strong></div>
+        </div>
+        <div class="param-block">
+          <div class="param-label">Best Glue Today</div>
+          <div class="param-values">
+            <span class="param-current" style="color:var(--accent);">Aquila LOW</span>
+          </div>
+          <div class="condition-result">Est. cure time: <strong>1.0–3.0 sec</strong> · Refresh every 15 min</div>
+        </div>
+      </div>
+      <p class="disclaimer-small">Guidance only — always verify with a hygrometer in your lash room.</p>
+    </div>
+  </div>
+</section>
+
+<section class="features-section">
+  <div class="container">
+    <p class="section-label">Features</p>
+    <h2>Everything you need before your first client</h2>
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon" style="background:rgba(232,160,191,0.12);">🌡</div>
+        <h3>Daily Condition Check</h3>
+        <p>Opens to today's humidity and temperature from your local weather. GREEN, YELLOW, or RED — you know before the first client arrives.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon" style="background:rgba(0,212,232,0.12);">💧</div>
+        <h3>Adhesive Recommendation</h3>
+        <p>Save your adhesive collection. GlueCast matches today's conditions to YOUR specific glues and ranks them by fit. (Pro)</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon" style="background:rgba(52,211,153,0.12);">⏱</div>
+        <h3>Adjusted Cure Time</h3>
+        <p>Not just the manufacturer's range — adjusted for today's actual humidity. Know if your 2-second glue is running at 1.2 or 2.8 today. (Pro)</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon" style="background:rgba(251,191,36,0.12);">📅</div>
+        <h3>7-Day Forecast</h3>
+        <p>Plan your week. See which days will be ideal, which will be tricky, and prep accordingly. (Pro)</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon" style="background:rgba(248,113,113,0.12);">🔔</div>
+        <h3>Morning Condition Alerts</h3>
+        <p>Get notified every morning before work with today's condition status. No more checking manually. (Pro)</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon" style="background:rgba(168,130,255,0.12);">🔒</div>
+        <h3>Fully Offline</h3>
+        <p>No account required. Your adhesive profiles and history stored locally on device. Weather fetched on demand.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="brands-section">
+  <div class="container">
+    <p class="section-label">Supported Adhesives</p>
+    <h2>19 adhesives included</h2>
+    <div class="brands-grid">
+      <span class="brand-tag">💧 LashJoy Aquila LOW</span>
+      <span class="brand-tag">💧 LashJoy Aquila MEDIUM</span>
+      <span class="brand-tag">💧 LashJoy Azure LOW</span>
+      <span class="brand-tag">💧 LashJoy Speed LOW</span>
+      <span class="brand-tag">⚡ BL Lashes Mach</span>
+      <span class="brand-tag">⚡ BL Lashes Ultra Plus</span>
+      <span class="brand-tag">⚡ BL Lashes Ultra Bonding</span>
+      <span class="brand-tag">⚡ BL Lashes DIU</span>
+      <span class="brand-tag">⚡ BL Lashes Fina</span>
+      <span class="brand-tag">🌿 London Lash Flexie</span>
+      <span class="brand-tag">🌿 London Lash Power Bond</span>
+      <span class="brand-tag">🌿 London Lash Royal Bond</span>
+      <span class="brand-tag">🌿 London Lash Lady Bond</span>
+      <span class="brand-tag">✨ PLA Flex</span>
+      <span class="brand-tag">✨ PLA Onyx</span>
+      <span class="brand-tag">✨ PLA Fusion</span>
+      <span class="brand-tag">🎯 Mish Secured</span>
+      <span class="brand-tag">🎯 ThousandLashes Elite HH</span>
+      <span class="brand-tag">➕ Add Custom</span>
+    </div>
+  </div>
+</section>
+
+<section class="how-section" id="how">
+  <div class="container" style="text-align:center;">
+    <p class="section-label">How It Works</p>
+    <h2>Three steps. Better retention.</h2>
+    <div class="steps">
+      <div class="step">
+        <div class="step-number">1</div>
+        <h3>Allow location</h3>
+        <p>GlueCast fetches today's humidity and temperature from Open-Meteo weather data for your area</p>
+      </div>
+      <div class="step">
+        <div class="step-number">2</div>
+        <h3>Add your adhesives</h3>
+        <p>Select from 19 pre-loaded adhesives or add custom specs. Save your full collection once</p>
+      </div>
+      <div class="step">
+        <div class="step-number">3</div>
+        <h3>Check every morning</h3>
+        <p>Open the app before your first client. Today's best glue, estimated cure time, and technique tip — ready instantly</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="perfect-section">
+  <div class="container" style="text-align:center;">
+    <p class="section-label">Perfect For</p>
+    <h2 style="margin-bottom:32px;">Built for lash professionals</h2>
+    <div class="target-tags">
+      <span class="target-tag">Solo lash technicians</span>
+      <span class="target-tag">Lash studio owners</span>
+      <span class="target-tag">Mobile lash artists</span>
+      <span class="target-tag">Multi-adhesive users</span>
+      <span class="target-tag">Humid climate techs</span>
+      <span class="target-tag">Dry climate techs</span>
+      <span class="target-tag">Nano mist users</span>
+      <span class="target-tag">Classic & volume artists</span>
+    </div>
+  </div>
+</section>
+
+<section class="cta-section">
+  <div class="container">
+    <h2>Stop guessing.<br><span style="color:var(--accent);">Start lashing with confidence.</span></h2>
+    <p>Free to use. Pro features $4.99/month.</p>
+    <a href="#" class="btn btn-primary" style="font-size:17px;padding:16px 36px;">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+      Download on the App Store
+    </a>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="footer-links">
+      <a href="privacy.html">Privacy Policy</a>
+      <a href="mailto:naruto0414@gmail.com">Support</a>
+    </div>
+    <p>© 2026 osk. All rights reserved.</p>
+    <p style="margin-top:8px;font-size:12px;">GlueCast is an informational tool for lash extension professionals. Always verify room conditions with a calibrated hygrometer before lashing. This app does not replace manufacturer instructions or professional training.</p>
+  </div>
+</footer>
+
+</body>
+</html>
